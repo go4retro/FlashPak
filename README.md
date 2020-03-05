@@ -16,7 +16,7 @@ To program please consult the AM29F040B datasheet for details, but essentially:
 * $aa -> $c555
 * $55 -> $c2aa
 * $a0 -> $c555
-* <value> -> <address>
+* [value] -> [address]
 
 Sample code is available in the src/ directory.  The programming must be precise and cannot easily be performed from BASIC(1)
 
