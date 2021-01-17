@@ -1098,10 +1098,10 @@ design rules under a new name.</description>
 <contactref element="X1" pad="37"/>
 <contactref element="IC1" pad="28"/>
 <wire x1="21.59" y1="4.7752" x2="21.59" y2="10.16" width="0.254" layer="1"/>
-<wire x1="8.89" y1="21.59" x2="18.415" y2="12.065" width="0.254" layer="16"/>
-<wire x1="18.415" y1="12.065" x2="19.685" y2="12.065" width="0.254" layer="16"/>
-<wire x1="19.685" y1="12.065" x2="21.59" y2="10.16" width="0.254" layer="1"/>
-<via x="19.685" y="12.065" extent="1-16" drill="0.3048"/>
+<wire x1="8.89" y1="21.59" x2="19.05" y2="11.43" width="0.254" layer="16"/>
+<wire x1="19.05" y1="11.43" x2="20.32" y2="11.43" width="0.254" layer="16"/>
+<wire x1="20.32" y1="11.43" x2="21.59" y2="10.16" width="0.254" layer="1"/>
+<via x="20.32" y="11.43" extent="1-16" drill="0.3048"/>
 </signal>
 <signal name="A12">
 <contactref element="X1" pad="31"/>
@@ -1180,9 +1180,6 @@ design rules under a new name.</description>
 <contactref element="IC4" pad="2"/>
 <wire x1="-5.08" y1="40.64" x2="-5.08" y2="48.26" width="0.254" layer="1"/>
 <wire x1="-5.08" y1="48.26" x2="-6.35" y2="49.53" width="0.254" layer="1"/>
-</signal>
-<signal name="!SLENB">
-<contactref element="X1" pad="40"/>
 </signal>
 <signal name="!HALT">
 <contactref element="X1" pad="3"/>
@@ -1330,6 +1327,11 @@ design rules under a new name.</description>
 <contactref element="J3" pad="1"/>
 <wire x1="9.779" y1="29.21" x2="11.049" y2="27.94" width="0.254" layer="16"/>
 <wire x1="11.049" y1="27.94" x2="17.145" y2="27.94" width="0.254" layer="16"/>
+<contactref element="X1" pad="40"/>
+<wire x1="24.13" y1="4.7752" x2="24.13" y2="11.43" width="0.254" layer="16"/>
+<via x="24.13" y="11.43" extent="1-16" drill="0.3048"/>
+<wire x1="24.13" y1="11.43" x2="20.32" y2="15.24" width="0.254" layer="1"/>
+<wire x1="20.32" y1="15.24" x2="20.32" y2="29.21" width="0.254" layer="1"/>
 </signal>
 <signal name="!CTS">
 <contactref element="IC1" pad="24"/>

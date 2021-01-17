@@ -5327,6 +5327,11 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="17.78" y1="165.1" x2="15.24" y2="165.1" width="0.1524" layer="91"/>
 <label x="15.24" y="165.1" size="1.27" layer="95" ratio="10" rot="R180" xref="yes"/>
 </segment>
+<segment>
+<pinref part="X1" gate="X" pin="!SLENB"/>
+<wire x1="73.66" y1="170.18" x2="71.12" y2="170.18" width="0.1524" layer="91"/>
+<label x="73.66" y="170.18" size="1.27" layer="95" ratio="10" xref="yes"/>
+</segment>
 </net>
 <net name="VCC" class="0">
 <segment>
@@ -5491,13 +5496,6 @@ In this library the device names are the same as the pin names of the symbols, t
 <label x="93.98" y="139.7" size="1.27" layer="95" ratio="10" rot="R180" xref="yes"/>
 <pinref part="IC4" gate="A" pin="B"/>
 <wire x1="93.98" y1="139.7" x2="96.52" y2="139.7" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="!SLENB" class="0">
-<segment>
-<pinref part="X1" gate="X" pin="!SLENB"/>
-<wire x1="73.66" y1="170.18" x2="71.12" y2="170.18" width="0.1524" layer="91"/>
-<label x="73.66" y="170.18" size="1.27" layer="95" ratio="10" xref="yes"/>
 </segment>
 </net>
 <net name="!HALT" class="0">
