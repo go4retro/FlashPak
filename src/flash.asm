@@ -1,18 +1,21 @@
-        ORG     4000
-
 REG_BANK = $ff40
 
-BANK .db $0 ; 4000
-ADDR .dw $0  ; 4001-02
-DATA .db $0  ; 4003
+    ORG 4000
+
+
+BANK .db $0           ; 4000
+ADDR .dw $0           ; 4001-02
+DATA .db $0           ; 4003
+SLOT_FLASH .db 0      ; 4004
 SLOT .db $0
     
     org 4010
-START:        ; jump table
-    bra ERASEALL
-    *bra ERASE
-    bra STORE
-    bra READ
+START:                ; jump table
+    jmp ERASEALL      ; +0
+    *bra ERASE        ;
+    jmp STORE         ; +3
+    jmp READ          ; +6
+    jmp FIND          ; +9
 
 CMD_SEND:
     lda #$aa
@@ -28,16 +31,17 @@ BANK_SET:
     sta REG_BANK
     rts
 
+; TODO Should ensure this address is not more than 1eff
 ADDR_GET:
-    ldd ADDR
-    ora #%11000000
+    ldd ADDR        ; 0-16K value
+    ora #%11000000  ; shift to $c000-$ffff
     tfr d,x
     rts
 
 SLOT_SET:
     lda $ff7f       ; save off current MPI slot data
     sta SLOT
-    lda #0          ; for now, assume MPI slot is #1
+    clra            ; for now, assume MPI slot is #1
     sta $ff7f
     sta $ffde       ; switch ROMs in
     rts
@@ -57,7 +61,6 @@ STORE:
     jsr ADDR_GET
     lda DATA
     sta 0,x
-    ;sta $c000
     jmp END
 
 READ:
@@ -67,8 +70,36 @@ READ:
     jsr BANK_SET
     jsr ADDR_GET
     lda 0,x
-    *lda $c000
     sta DATA
+    jmp END
+
+FIND:
+    PSHS D,X,CC     ; save the registers our setup code will effect
+    ORCC #$50       ; = %01010000 this will Disable the FIRQ and the IRQs using the Condition Code register is [EFHINZVC] a high or 1 will disable that value
+    jsr SLOT_SET    ; save off current slot setting
+    clra
+FINDLOOP:
+    sta SLOT_FLASH  ; save off potentially correct Slot value
+    sta $ff7f
+    ldb #$90        ; read manufacturer ID
+    jsr CMD_SEND
+    ldb $c000       ; get manufacturer ID
+    cmpb #01        ; Are we AMD?
+    beq FOUND_AMD
+    lda SLOT_FLASH
+    adda #$11
+    bcc FINDLOOP
+    lda #$5a        ; no FLASH found
+    sta SLOT_FLASH
+    jmp END
+FOUND_AMD:
+    ldb #$90
+    jsr CMD_SEND
+    lda $c001       ; get product ID
+    cmpa #$a4       ; Are we 29F040B
+    beq END
+    lda #$a5        ; No 29F040B found
+    sta SLOT_FLASH
     jmp END
   
 ERASEALL:
@@ -84,7 +115,7 @@ ERASEALL:
 
 END:
 * go back to BASIC
-    lda #0          ; turn off programming mode
+    clra            ; turn off programming mode
     sta REG_BANK
     jsr SLOT_RESET  ; move back to previous MPI slot setting
     sta $ffdf
