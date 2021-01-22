@@ -3,11 +3,13 @@ REG_BANK = $ff40
     ORG 4000
 
 
-BANK .db $0           ; 4000
-ADDR .dw $0           ; 4001-02
-DATA .db $0           ; 4003
-SLOT_FLASH .db 0      ; 4004
-SLOT .db $0
+BANK  .db $0          ; 4000
+ADDR  .dw $0          ; 4001-02
+DATA  .db $0          ; 4003
+BUF   .dw $0          ; 4004-5
+LEN   .dw $0          ; 4006-7
+SLOT_FLASH .db 0      ; 4008
+SLOT .db $0           ; 4009
     
     org 4010
 START:                ; jump table
@@ -16,6 +18,8 @@ START:                ; jump table
     jmp STORE         ; +3
     jmp READ          ; +6
     jmp FIND          ; +9
+    jmp STOREBLOCK    ; +12
+    jmp READBLOCK     ; +15
 
 CMD_SEND:
     lda #$aa
@@ -63,6 +67,26 @@ STORE:
     sta 0,x
     jmp END
 
+STOREBLOCK:
+    PSHS D,X,CC     ; save the registers our setup code will effect
+    ORCC #$50       ; = %01010000 this will Disable the FIRQ and the IRQs using the Condition Code register is [EFHINZVC] a high or 1 will disable that value
+    jsr SLOT_SET
+    jsr BANK_SET
+    jsr ADDR_GET    ; at the end of this, X = ADDR OR $c000
+    tfr x,y
+    ldu BUF
+    ldx LEN
+!:
+    lda ,u+
+    pshs D
+    ldb #$a0
+    jsr CMD_SEND    ; trashes a and b
+    puls D
+    sta ,y+
+    leax -1,x
+    bne <
+    jmp END
+
 READ:
     PSHS D,X,CC     ; save the registers our setup code will effect
     ORCC #$50       ; = %01010000 this will Disable the FIRQ and the IRQs using the Condition Code register is [EFHINZVC] a high or 1 will disable that value
@@ -71,6 +95,22 @@ READ:
     jsr ADDR_GET
     lda 0,x
     sta DATA
+    jmp END
+
+READBLOCK:
+    PSHS D,X,CC     ; save the registers our setup code will effect
+    ORCC #$50       ; = %01010000 this will Disable the FIRQ and the IRQs using the Condition Code register is [EFHINZVC] a high or 1 will disable that value
+    jsr SLOT_SET
+    jsr BANK_SET
+    jsr ADDR_GET    ; at the end of this, X = ADDR OR $c000
+    tfr x,y
+    ldu BUF
+    ldx LEN
+!:
+    lda ,y+
+    sta ,u+
+    leax -1,x
+    bne <
     jmp END
 
 FIND:
