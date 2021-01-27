@@ -1,4 +1,7 @@
 # FlashPak - 512kB FLASH ROM Cartridge Unit for the TANDY Color Computer 1, 2, 3, and Dragon
+
+![](media/IMG_0136.JPG)
+
 This cartridge supports 512kB of system programmable FLASH ROM utilizing the RoboCop (Zumwalt) banking system.
 
 ## Technical Details
