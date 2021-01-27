@@ -117,6 +117,7 @@ FIND:
     PSHS D,X,CC     ; save the registers our setup code will effect
     ORCC #$50       ; = %01010000 this will Disable the FIRQ and the IRQs using the Condition Code register is [EFHINZVC] a high or 1 will disable that value
     jsr SLOT_SET    ; save off current slot setting
+    jsr BANK_SET
     clra
 FINDLOOP:
     sta SLOT_FLASH  ; save off potentially correct Slot value
@@ -138,7 +139,7 @@ FOUND_AMD:
     lda $c001       ; get product ID
     cmpa #$a4       ; Are we 29F040B
     beq END
-    lda #$a5        ; No 29F040B found
+    ;lda #$a5        ; No 29F040B found
     sta SLOT_FLASH
     jmp END
   

@@ -33,6 +33,8 @@ image:	bin $(DISTDIR)/$(IMAGE)
 	$(R)$(DECB) copy -r $(SRCDIR)/autoexec.bas $(DISTDIR)/$(IMAGE),AUTOEXEC.BAS -0 -t
 	$(E) " Adding flash.bin to image"
 	$(R)$(DECB) copy -r -2 $(OBJDIR)/flash.bin $(DISTDIR)/$(IMAGE),FLASH.BIN
+	$(E) " Adding testcart.ccc to image"
+	$(R)$(DECB) copy -r -2 testcart.ccc $(DISTDIR)/$(IMAGE),TESTCART.CCC
 
 $(DISTDIR)/$(IMAGE):
 	$(E) " Creating disk image"
