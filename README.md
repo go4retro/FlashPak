@@ -5,7 +5,7 @@
 This cartridge supports 512kB of system programmable FLASH ROM utilizing the RoboCop (Zumwalt) banking system.
 
 ## Technical Details
-Banks are 16kB in size (technically, 16KiB-256 bytes, since $ff00-$ffff is reserved for IO and vectors), which allows operation on all TANDY Color Computer models and the Dragon Data Dragon machines.  FLASH ROM appears at location $c000 in the memory map, while the banking register appears at $ff40.  The bits in the banking register are as follows:
+Banks are 16kB in size (technically, 16KiB - 256 bytes, since $ff00-$ffff is reserved for IO and vectors), which allows operation on all TANDY Color Computer models and the Dragon Data Dragon machines.  FLASH ROM appears at location $c000 in the memory map, while the banking register appears at $ff40.  The bits in the banking register are as follows:
 
 | IO Location | Bit Location | Description                 |
 | ----------- | ------------ | --------------------------- |
