@@ -1,0 +1,20 @@
+Partlist
+
+Exported from FlashPak.sch at 5/6/2024 11:41 PM
+
+EAGLE Version 7.7.0 Copyright (c) 1988-2016 CadSoft
+
+Assembly variant: 
+
+Part     Value               Device              Package      Library     Sheet
+
+C1       0.1uF               C-US025-025X050     C025-025X050 rcl         1
+C2       0.1uF               C-US025-025X050     C025-025X050 rcl         1
+C3       0.1uF               C-US025-025X050     C025-025X050 rcl         1
+C4       0.1uF               C-US025-025X050     C025-025X050 rcl         1
+IC1      EPROM/FLASHROM      SST39SF040APHR      DIL32-RP     memory-sst  1
+IC2      74LS174N            74LS174N            DIL16-RP     74xx-us-jlb 1
+IC3      74LS138N            74LS138N            DIL16-RP     74xx-us-jlb 1
+IC4      74LS688N            74LS688N            DIL20-RP     74xx-us-jlb 1
+S1       TL36WO              TL36WO              TL3XWO       switch      1
+SJ8      AUTOSTART           SJ                  SJ           jumper-jlb  1
